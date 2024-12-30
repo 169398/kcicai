@@ -2,13 +2,13 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
-import { Facebook, Linkedin, Twitter } from "lucide-react";
 
 const socialLinks = [
-  { name: "facebook", url: "https://facebook.com", icon: Facebook },
-  { name: "twitter", url: "https://twitter.com", icon: Twitter }, 
-  { name: "linkedin", url: "https://linkedin.com", icon: Linkedin },
+  { name: "facebook", url: "https://facebook.com" },
+  { name: "twitter", url: "https://twitter.com" },
+  { name: "linkedin", url: "https://linkedin.com" },
 ] as const;
 
 const navLinks = [
@@ -34,7 +34,13 @@ const Footer = () => {
                 whileHover={{ scale: 1.1 }}
                 className="relative w-6 h-6"
               >
-                <social.icon className="w-6 h-6" />
+                <Image
+                  src={`/icons/${social.name}.svg`}
+                  alt={social.name}
+                  width={24}
+                  height={24}
+                  className="object-contain"
+                />
               </motion.a>
             ))}
           </div>
