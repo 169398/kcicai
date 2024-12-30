@@ -1,17 +1,26 @@
-
 import { ModeToggle } from "@/components/themes/mode-toggle";
+import AboutUsSection from "@/components/AboutUsSection";
+import HeroSection from "@/components/HeroSection";
+import CallToActionSection from "@/components/CallToActionSection";
+import ServicesSection from "@/components/ServicesSection";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Welcome to my page
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
+    <main className="relative flex min-h-screen flex-col">
+
+      <nav className="fixed w-full top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container flex h-14 items-center justify-between">
+          <div className="font-bold">KCIC AI</div>
           <ModeToggle />
         </div>
-      </div>
+      </nav>
+
+      <HeroSection />
+      <ServicesSection/>
+      <AboutUsSection />
+      <CallToActionSection />
+      <Footer/>
     </main>
   );
 }
