@@ -18,8 +18,8 @@ const services = [
     icon: Rocket,
   },
   {
-    title: "Development Communications",
-    description: "Smart communication strategies powered by AI",
+    title: "AI Sustainability Training",
+    description: "Certified training programs in AI-driven sustainability",
     icon: MessageSquare,
   },
   {

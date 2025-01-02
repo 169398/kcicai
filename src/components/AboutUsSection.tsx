@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 import Image from "next/image";
 import { Card } from "@/components/ui/card";
@@ -99,6 +99,25 @@ const AboutUsSection = () => {
 };
 
 const BackgroundAnimation = () => {
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    // Set the dimensions when the component mounts
+    setDimensions({ width: window.innerWidth, height: window.innerHeight });
+
+    // Optionally, update dimensions on window resize
+    const handleResize = () => {
+      setDimensions({ width: window.innerWidth, height: window.innerHeight });
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <div className="absolute inset-0">
       {[...Array(20)].map((_, i) => (
@@ -106,14 +125,14 @@ const BackgroundAnimation = () => {
           key={i}
           className="absolute w-1 h-1 bg-blue-500 rounded-full"
           initial={{
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
+            x: Math.random() * dimensions.width,
+            y: Math.random() * dimensions.height,
             scale: Math.random() * 0.5 + 0.5,
             opacity: Math.random() * 0.5 + 0.25,
           }}
           animate={{
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
+            x: Math.random() * dimensions.width,
+            y: Math.random() * dimensions.height,
             transition: {
               duration: Math.random() * 20 + 10,
               repeat: Infinity,
