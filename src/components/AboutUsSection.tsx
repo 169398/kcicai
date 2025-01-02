@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 import Image from "next/image";
 import { Card } from "@/components/ui/card";
@@ -99,24 +99,27 @@ const AboutUsSection = () => {
 };
 
 const BackgroundAnimation = () => {
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const [dimensions, setDimensions] = React.useState({ width: 0, height: 0 });
 
-  useEffect(() => {
-    // Set the dimensions when the component mounts
-    setDimensions({ width: window.innerWidth, height: window.innerHeight });
+  React.useEffect(() => {
+    // Only access window on client side
+    setDimensions({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
 
-    // Optionally, update dimensions on window resize
     const handleResize = () => {
-      setDimensions({ width: window.innerWidth, height: window.innerHeight });
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
     };
 
     window.addEventListener("resize", handleResize);
-
-    // Cleanup event listener on component unmount
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  if (dimensions.width === 0) return null; // Don't render until we have dimensions
 
   return (
     <div className="absolute inset-0">

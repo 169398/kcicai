@@ -111,6 +111,28 @@ const HeroSection = () => {
 };
 
 const ParticleField = () => {
+  const [dimensions, setDimensions] = React.useState({ width: 0, height: 0 });
+
+  React.useEffect(() => {
+    // Only access window on client side
+    setDimensions({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+
+    const handleResize = () => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  if (dimensions.width === 0) return null; // Don't render until we have dimensions
+
   return (
     <div className="absolute inset-0 z-0">
       {[...Array(50)].map((_, i) => (
@@ -118,13 +140,13 @@ const ParticleField = () => {
           key={i}
           className="absolute w-1 h-1 bg-blue-500 rounded-full"
           initial={{
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
+            x: Math.random() * dimensions.width,
+            y: Math.random() * dimensions.height,
             scale: Math.random() * 0.5 + 0.5,
           }}
           animate={{
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
+            x: Math.random() * dimensions.width,
+            y: Math.random() * dimensions.height,
             transition: {
               duration: Math.random() * 20 + 10,
               repeat: Infinity,
